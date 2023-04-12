@@ -66,9 +66,12 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "nbabasketball.pipelines.NbabasketballPipeline": 300,
-#}
+ITEM_PIPELINES = {
+    "nbabasketball.pipelines.NBATeamPipeline": 300,
+    "nbabasketball.pipelines.NBAPlayerPipeline": 400,
+    "nbabasketball.pipelines.NBAGamePipeline": 500,
+    "nbabasketball.pipelines.NBAStatPipeline": 600,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
