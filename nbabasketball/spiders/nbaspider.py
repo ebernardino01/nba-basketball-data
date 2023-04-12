@@ -16,8 +16,8 @@ class NbaspiderSpider(scrapy.Spider):
     base_url = 'https://balldontlie.io/api/v1'
     team_url = f'{base_url}/teams'
     player_url = f'{base_url}/players'
-    game_url = f'{base_url}/games?seasons[]=2022'
-    stat_url = f'{base_url}/stats?seasons[]=2022'
+    game_url = f'{base_url}/games?seasons[]=2022&postseason=false'
+    stat_url = f'{base_url}/stats?seasons[]=2022&postseason=false'
     start_urls = [
         team_url, player_url, game_url, stat_url
     ]
