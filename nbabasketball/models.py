@@ -1,7 +1,7 @@
 from dotenv import dotenv_values
 
 from sqlalchemy import create_engine, Column, ForeignKey
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import BOOLEAN
 from sqlalchemy.dialects.mysql.types import (
@@ -14,7 +14,7 @@ from sqlalchemy.dialects.mysql.types import (
 )
 
 
-env = dotenv_values(".env")
+env = dotenv_values('.env')
 Base = declarative_base()
 
 
@@ -24,7 +24,7 @@ def db_connect():
     Returns sqlalchemy engine instance
     """
     return create_engine(
-        env.get("DATABASE_URL"),
+        env.get('DATABASE_URL'),
         pool_size=30,
         max_overflow=0
     )
@@ -51,6 +51,21 @@ class NBATeam(Base):
     full_name = Column('full_name', VARCHAR(100))
     name = Column('name', VARCHAR(100))
 
+    players = relationship(
+        'NBAPlayer',
+        primaryjoin='(NBATeam.id == NBAPlayer.team_id)'
+    )
+    games = relationship(
+        'NBAGame',
+        primaryjoin='or_(NBATeam.id == NBAGame.home_team_id, NBATeam.id == NBAGame.visitor_team_id)',
+        backref='team'
+    )
+    stats = relationship(
+        'NBAStat',
+        primaryjoin='(NBATeam.id == NBAStat.team_id)',
+        backref='team'
+    )
+
 
 class NBAPlayer(Base):
     __tablename__ = "nba_players"
@@ -64,7 +79,11 @@ class NBAPlayer(Base):
     weight_pounds = Column('weight_pounds', SMALLINT)
 
     team_id = Column(BIGINT, ForeignKey('nba_teams.id'))
-    team = relationship("NBATeam", backref=backref("nba_players", uselist=False))
+    team = relationship(
+        'NBATeam',
+        foreign_keys=[team_id],
+        overlaps='players'
+    )
 
 
 class NBAGame(Base):
@@ -81,9 +100,17 @@ class NBAGame(Base):
     visitor_team_score = Column('visitor_team_score', SMALLINT)
 
     home_team_id = Column(BIGINT, ForeignKey('nba_teams.id'))
-    home_team = relationship("NBATeam", backref=backref("nba_games", uselist=False))
+    home_team = relationship(
+        'NBATeam',
+        foreign_keys=[home_team_id],
+        overlaps='games,team'
+    )
     visitor_team_id = Column(BIGINT, ForeignKey('nba_teams.id'))
-    visitor_team = relationship("NBATeam", backref=backref("nba_games", uselist=False))
+    visitor_team = relationship(
+        'NBATeam',
+        foreign_keys=[visitor_team_id],
+        overlaps='games,team'
+    )
 
 
 class NBAStat(Base):

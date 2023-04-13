@@ -26,11 +26,12 @@ class NbabasketballPipeline:
         Initialize database connection and sessionmaker
         Create database tables
         """
+        self.rows = []
         try:
             engine = db_connect()
             create_table(engine)
             self.Session = sessionmaker(bind=engine)
-            self.rows = []
+            print(self.Session)
         except Exception as e:
             logger.error('Connection problem: ', e.args)
 
