@@ -14,6 +14,7 @@ class NBATeamItem(Item):
     division = Field()
     full_name = Field()
     name = Field()
+    scraped_date_time = Field()
 
 
 class NBAPlayerItem(Item):
@@ -25,6 +26,7 @@ class NBAPlayerItem(Item):
     position = Field()
     weight_pounds = Field()
     team_id = Field()
+    scraped_date_time = Field()
 
 
 class NBAGameItem(Item):
@@ -39,6 +41,7 @@ class NBAGameItem(Item):
     visitor_team_score = Field()
     home_team_id = Field()
     visitor_team_id = Field()
+    scraped_date_time = Field()
 
 
 class NBAStatItem(Item):
@@ -65,3 +68,4 @@ class NBAStatItem(Item):
     game_id = Field()
     player_id = Field()
     team_id = Field()
+    scraped_date_time = Field()

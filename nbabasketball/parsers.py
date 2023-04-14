@@ -1,3 +1,4 @@
+from datetime import datetime
 from dateutil.parser import parse
 
 from nbabasketball.items import (
@@ -24,6 +25,7 @@ class NBATeamParser(BaseParser):
         team_item['division'] = self.item_json['division']
         team_item['full_name'] = self.item_json['full_name']
         team_item['name'] = self.item_json['name']
+        team_item['scraped_date_time'] = datetime.now()
         return team_item
 
 
@@ -38,6 +40,7 @@ class NBAPlayerParser(BaseParser):
         player_item['position'] = self.item_json['position']
         player_item['weight_pounds'] = self.item_json['weight_pounds']
         player_item['team_id'] = self.item_json['team']['id']
+        player_item['scraped_date_time'] = datetime.now()
         return player_item
 
 
@@ -55,6 +58,7 @@ class NBAGameParser(BaseParser):
         game_item['visitor_team_score'] = self.item_json['visitor_team_score']
         game_item['home_team_id'] = self.item_json['home_team']['id']
         game_item['visitor_team_id'] = self.item_json['visitor_team']['id']
+        game_item['scraped_date_time'] = datetime.now()
         return game_item
 
 
@@ -84,4 +88,5 @@ class NBAStatParser(BaseParser):
         stat_item['game_id'] = self.item_json['game']['id']
         stat_item['player_id'] = self.item_json['player']['id']
         stat_item['team_id'] = self.item_json['team']['id']
+        stat_item['scraped_date_time'] = datetime.now()
         return stat_item

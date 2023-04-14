@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import BOOLEAN
 from sqlalchemy.dialects.mysql.types import (
     BIGINT,
-    TIMESTAMP,
+    DATETIME,
     DECIMAL,
     SMALLINT,
     TINYINT,
@@ -50,6 +50,7 @@ class NBATeam(Base):
     division = Column('division', VARCHAR(50))
     full_name = Column('full_name', VARCHAR(100))
     name = Column('name', VARCHAR(100))
+    scraped_date_time = Column('scraped_date_time', DATETIME)
 
     players = relationship(
         'NBAPlayer',
@@ -77,6 +78,7 @@ class NBAPlayer(Base):
     last_name = Column('last_name', VARCHAR(255))
     position = Column('position', VARCHAR(100))
     weight_pounds = Column('weight_pounds', SMALLINT)
+    scraped_date_time = Column('scraped_date_time', DATETIME)
 
     team_id = Column(BIGINT, ForeignKey('nba_teams.id'))
     team = relationship(
@@ -90,7 +92,7 @@ class NBAGame(Base):
     __tablename__ = "nba_games"
 
     id = Column(BIGINT, primary_key=True)
-    date = Column('date', TIMESTAMP)
+    date = Column('date', DATETIME)
     home_team_score = Column('home_team_score', SMALLINT)
     period = Column('period', TINYINT)
     postseason = Column('postseason', BOOLEAN)
@@ -98,6 +100,7 @@ class NBAGame(Base):
     status = Column('status', VARCHAR(50))
     time = Column('time', VARCHAR(50))
     visitor_team_score = Column('visitor_team_score', SMALLINT)
+    scraped_date_time = Column('scraped_date_time', DATETIME)
 
     home_team_id = Column(BIGINT, ForeignKey('nba_teams.id'))
     home_team = relationship(
@@ -136,6 +139,7 @@ class NBAStat(Base):
     rebounds = Column('rebounds', SMALLINT)
     steals = Column('steals', SMALLINT)
     turnovers = Column('turnovers', SMALLINT)
+    scraped_date_time = Column('scraped_date_time', DATETIME)
 
     game_id = Column(BIGINT, ForeignKey('nba_games.id'))
     player_id = Column(BIGINT, ForeignKey('nba_players.id'))
