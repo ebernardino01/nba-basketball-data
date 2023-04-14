@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import BOOLEAN
 from sqlalchemy.dialects.mysql.types import (
     BIGINT,
-    DATETIME,
+    TIMESTAMP,
     DECIMAL,
     SMALLINT,
     TINYINT,
@@ -90,7 +90,7 @@ class NBAGame(Base):
     __tablename__ = "nba_games"
 
     id = Column(BIGINT, primary_key=True)
-    date = Column('date', DATETIME)
+    date = Column('date', TIMESTAMP)
     home_team_score = Column('home_team_score', SMALLINT)
     period = Column('period', TINYINT)
     postseason = Column('postseason', BOOLEAN)

@@ -1,9 +1,6 @@
 import logging
 
-from twisted.internet import reactor
-from scrapy.crawler import CrawlerRunner
-from scrapy.utils.project import get_project_settings
-
+from common import run_spider
 from spiders.nbagamespider import BalldontlieGameSpider
 
 
@@ -16,7 +13,5 @@ class NbaGameSpider(BalldontlieGameSpider):
     start_urls = [f'{base_url}/games?seasons[]=2022&postseason=false']
 
 
-runner = CrawlerRunner(settings=get_project_settings())
-d = runner.crawl(NbaGameSpider)
-d.addBoth(lambda _: reactor.stop())
-reactor.run() # the script will block here until the crawling is finished
+if __name__ == '__main__':
+    run_spider(NbaGameSpider)

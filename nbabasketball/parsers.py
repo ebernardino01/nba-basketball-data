@@ -1,3 +1,5 @@
+from dateutil.parser import parse
+
 from nbabasketball.items import (
     NBATeamItem,
     NBAPlayerItem,
@@ -43,7 +45,7 @@ class NBAGameParser(BaseParser):
     def output(self):
         game_item = NBAGameItem()
         game_item['id'] = self.item_json['id']
-        game_item['date'] = self.item_json['date']
+        game_item['date'] = parse(self.item_json['date'])
         game_item['home_team_score'] = self.item_json['home_team_score']
         game_item['period'] = self.item_json['period']
         game_item['postseason'] = self.item_json['postseason']
