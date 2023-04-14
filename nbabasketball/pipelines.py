@@ -153,13 +153,13 @@ class NBAStatPipeline(NbabasketballPipeline):
         session = self.Session()
         try:
             existing_stat = session.query(NBAStat).filter_by(
-                id=item['id']
+                stat_id=item['stat_id']
             ).first()
 
             # Check for instance before adding
             if not existing_stat:
                 stat_item = NBAStat()
-                stat_item.id = item['id']
+                stat_item.stat_id = item['stat_id']
                 stat_item.assists = item['assists']
                 stat_item.blocks = item['blocks']
                 stat_item.defensive_rebounds = item['defensive_rebounds']

@@ -45,7 +45,7 @@ class NBAGameItem(Item):
 
 
 class NBAStatItem(Item):
-    id = Field()
+    stat_id = Field()
     assists = Field()
     blocks = Field()
     defensive_rebounds = Field()

@@ -65,7 +65,7 @@ class NBAGameParser(BaseParser):
 class NBAStatParser(BaseParser):
     def output(self):
         stat_item = NBAStatItem()
-        stat_item['id'] = self.item_json['id']
+        stat_item['stat_id'] = self.item_json['id']
         stat_item['assists'] = self.item_json['ast']
         stat_item['blocks'] = self.item_json['blk']
         stat_item['defensive_rebounds'] = self.item_json['dreb']

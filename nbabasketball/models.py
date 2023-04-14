@@ -119,7 +119,8 @@ class NBAGame(Base):
 class NBAStat(Base):
     __tablename__ = "nba_stats"
 
-    id = Column(BIGINT, primary_key=True)
+    id = Column(BIGINT, primary_key=True, autoincrement=True)
+    stat_id = Column('stat_id', BIGINT, nullable=False)
     assists = Column('assists', SMALLINT)
     blocks = Column('blocks', SMALLINT)
     defensive_rebounds = Column('defensive_rebounds', SMALLINT)
@@ -132,7 +133,7 @@ class NBAStat(Base):
     free_throw_percent = Column('free_throw_percent', DECIMAL(5,2))
     free_throw_attempt = Column('free_throw_attempt', SMALLINT)
     free_throw_made = Column('free_throw_made', SMALLINT)
-    minutes = Column('minutes', TINYINT)
+    minutes = Column('minutes', VARCHAR(10))
     offensive_rebounds = Column('offensive_rebounds', SMALLINT)
     personal_fouls = Column('personal_fouls', TINYINT)
     points = Column('points', SMALLINT)
