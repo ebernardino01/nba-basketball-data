@@ -75,7 +75,13 @@ class NBATeamPipeline(NbabasketballPipeline):
                 team_item.full_name = item['full_name']
                 team_item.name = item['name']
                 team_item.scraped_date_time = item['scraped_date_time']
-                self.rows.append(team_item)
+
+                # Check if the instance is already in the list
+                if any(team.id == team_item.id for team in self.rows):
+                    logger.error(f'{team_item.id} is already in the list, skipping...')
+                else:
+                    # Add once instance is not yet included
+                    self.rows.append(team_item)
         finally:
             session.close()
 
@@ -105,7 +111,13 @@ class NBAPlayerPipeline(NbabasketballPipeline):
                 player_item.weight_pounds = item['weight_pounds']
                 player_item.team_id = item['team_id']
                 player_item.scraped_date_time = item['scraped_date_time']
-                self.rows.append(player_item)
+
+                # Check if the instance is already in the list
+                if any(player.id == player_item.id for player in self.rows):
+                    logger.error(f'{player_item.id} is already in the list, skipping...')
+                else:
+                    # Add once instance is not yet included
+                    self.rows.append(player_item)
         finally:
             session.close()
 
@@ -138,7 +150,13 @@ class NBAGamePipeline(NbabasketballPipeline):
                 game_item.home_team_id = item['home_team_id']
                 game_item.visitor_team_id = item['visitor_team_id']
                 game_item.scraped_date_time = item['scraped_date_time']
-                self.rows.append(game_item)
+
+                # Check if the instance is already in the list
+                if any(game.id == game_item.id for game in self.rows):
+                    logger.error(f'{game_item.id} is already in the list, skipping...')
+                else:
+                    # Add once instance is not yet included
+                    self.rows.append(game_item)
         finally:
             session.close()
 
@@ -183,7 +201,13 @@ class NBAStatPipeline(NbabasketballPipeline):
                 stat_item.player_id = item['player_id']
                 stat_item.team_id = item['team_id']
                 stat_item.scraped_date_time = item['scraped_date_time']
-                self.rows.append(stat_item)
+
+                # Check if the instance is already in the list
+                if any(stat.stat_id == stat_item.stat_id for stat in self.rows):
+                    logger.error(f'{stat_item.stat_id} is already in the list, skipping...')
+                else:
+                    # Add once instance is not yet included
+                    self.rows.append(stat_item)
         finally:
             session.close()
 

@@ -4,7 +4,8 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
 
 
-def f(q, spider):
+# Execute spider using reactor and crawler runner
+def run_spider_crawler(q, spider):
     try:
         runner = CrawlerRunner(settings=get_project_settings())
         deferred = runner.crawl(spider)
@@ -18,7 +19,7 @@ def f(q, spider):
 # Wrapper to fork a separate process
 def run_spider(spider):
     q = Queue()
-    p = Process(target=f, args=(q, spider))
+    p = Process(target=run_spider_crawler, args=(q, spider))
     p.start()
     result = q.get()
     p.join()
